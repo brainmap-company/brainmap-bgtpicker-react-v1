@@ -1,0 +1,14 @@
+name: brainmap-bgtpicker-react-v1
+
+on:
+    push:
+        branches: [release]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: redeploy api
+              run: |
+                  curl -X POST -H "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOiIyMDIzLTA2LTI1IDEwOjQzOjQ4IiwiaWF0IjoxNjg3NjU3NDI4LCJleHAiOjc5OTQ4NTc0Mjh9.klz2lfzOYePemKPj-Gc725tHL8d93UjrXqrFGIMN_mQ" -H "Content-Type: application/json" -d '{"project_id": "p-d6cr2", "deployment_id": "brainmap-bgtpicker-react-v1"}' https://lldbp1kcljclyrns-rancher-api.brainmap.co.kr/api/deployment/redeploy
