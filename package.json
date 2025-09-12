@@ -106,7 +106,6 @@
         "pre": "cross-env REACT_APP_CUSTOM_MODE=PRE-RELEASE craco start",
         "mock": "cross-env REACT_APP_MOCK=true craco start",
         "build": "craco build",
-        "preinstall": "npx npm-force-resolutions",
         "test": "craco test",
         "eject": "react-scripts eject",
         "lint": "eslint src/**/*.js src/**/*.jsx",
@@ -140,9 +139,6 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "resolutions": {
-        "react-error-overlay": "6.0.9"
     },
     "homepage": ""
 }
