@@ -1,1 +1,0 @@
-import{j as e}from"./react-BttIj7Ka.js";const l=()=>e.jsx("div",{style:{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh",fontSize:"2rem",color:"white",fontFamily:"Arial, sans-serif"},children:"Hello World"});export{l as default};
