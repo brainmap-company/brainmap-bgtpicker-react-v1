@@ -105,7 +105,7 @@
         "dev": "cross-env REACT_APP_CUSTOM_MODE=DEV craco start",
         "pre": "cross-env REACT_APP_CUSTOM_MODE=PRE-RELEASE craco start",
         "mock": "cross-env REACT_APP_MOCK=true craco start",
-        "build": "craco build && cp -r build/* dist/",
+        "build": "craco build && mkdir -p dist && cp -r build/* dist/",
         "test": "craco test",
         "eject": "react-scripts eject",
         "lint": "eslint src/**/*.js src/**/*.jsx",
