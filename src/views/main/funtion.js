@@ -1,29 +1,24 @@
-import axios from 'axios';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import Config from '@app/config';
 
-const API_BASE_URL = 'http://localhost:4000/api/brainmap/bgt/images';
+const API_BASE_URL = `${Config.REQUEST[0].url}/bgt/data`;
 const S3_BASE_URL = 'https://brainmap.s3.ap-northeast-2.amazonaws.com/';
 
 export const fetchImagePaths = async (params) => {
     try {
-        const tokenData = localStorage.getItem('access_token');
-        let token = null;
+        const response = await fetch(API_BASE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(params)
+        });
         
-        if (tokenData) {
-            try {
-                const parsed = JSON.parse(tokenData);
-                token = parsed.data;
-            } catch {
-                token = tokenData;
-            }
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        const authHeaders = { 'Content-Type': 'application/json' };
-        if (token) authHeaders['brainmap-hospital-token'] = token;
-        
-        const response = await axios.post(API_BASE_URL, params, { headers: authHeaders });
-        return response.data;
+        return await response.json();
     } catch (error) {
         return { success: false, error: `API 요청 실패: ${error.message}` };
     }
@@ -76,19 +71,34 @@ export const downloadBgtFilesAsZip = async (bgtUrls, filename = 'bgt_files', fil
         
         if (fileType === 'text') {
             bgtUrls.forEach((textData, index) => {
-                const textContent = JSON.stringify(textData, null, 2);
-                zip.file(`${filename}_${index + 1}.txt`, textContent);
+                zip.file(`${filename}_${index + 1}.txt`, JSON.stringify(textData, null, 2));
             });
         } else {
             const promises = bgtUrls.map(async (bgtUrl, index) => {
                 try {
-                    const response = await fetch(bgtUrl);
-                    if (!response.ok) return;
+                    const fileResponse = await fetch(`${Config.REQUEST[0].url}/bgt/download?url=${encodeURIComponent(bgtUrl)}`, {
+                        credentials: 'include'
+                    });
+                    if (!fileResponse.ok) {
+                        throw new Error(`HTTP error! status: ${fileResponse.status}`);
+                    }
                     
-                    const blob = await response.blob();
-                    const fileExtension = bgtUrl.split('.').pop() || 'jpg';
-                    zip.file(`${filename}_${index + 1}.${fileExtension}`, blob);
-                } catch {}
+                    const fileBlob = await fileResponse.blob();
+                    const contentType = fileResponse.headers.get('content-type');
+                    
+                    let fileExtension = 'png';
+                    if (contentType?.includes('jpeg') || contentType?.includes('jpg')) {
+                        fileExtension = 'jpg';
+                    } else if (contentType?.includes('png')) {
+                        fileExtension = 'png';
+                    } else if (bgtUrl.includes('.')) {
+                        fileExtension = bgtUrl.split('.').pop();
+                    }
+                    
+                    zip.file(`${filename}_${index + 1}.${fileExtension}`, fileBlob);
+                } catch (error) {
+                    console.warn(`Failed to fetch ${bgtUrl}:`, error);
+                }
             });
             await Promise.all(promises);
         }

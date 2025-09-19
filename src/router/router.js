@@ -4,13 +4,11 @@ import styled from 'styled-components';
 import BgtPicker from '../views/main';
 import IsChangedRoute from './IsChangedRoute';
 
-//#region styled-components
 const Content = styled.div`
     padding: 20px;
     background-color: #f9f9f9;
     min-height: 100vh;
 `;
-//#endregion
 
 function Router() {
     return (

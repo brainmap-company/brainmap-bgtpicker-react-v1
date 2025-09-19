@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import CancelIcon from '@images/icn-cancel.png';
 import SearchIcon from '@images/icn-search-gray.png';
 
-//#region styled-components
 
 const InputWrapper = styled.div`
     position: relative;
@@ -44,7 +43,6 @@ const InputCancelIcon = styled.img`
     height: 26px;
 `;
 
-//#endregion
 
 const Input = ({
     placeholder,

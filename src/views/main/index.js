@@ -77,12 +77,20 @@ const BgtPicker = () => {
         setCurrentType(formData.type || 'BGT');
         try {
             const response = await fetchImagePaths(formData);
-            if (response.isSuccess && response.data.length > 0) {
+            
+                if (response.isOK === true && response.result && response.result.length > 0) {
                 if (formData.type === 'PFT') {
-                    const textData = response.data.map(item => Array.isArray(item.answer) ? item.answer : []);
-                    setBgtFiles(textData);
+                    if (response.result[0].answer) {
+                        setBgtFiles(response.result[0].answer);
+                    } else {
+                        setError('답변 데이터를 찾을 수 없습니다.');
+                    }
                 } else {
-                    setBgtFiles(generateS3Urls(response.data[0].image_path));
+                    if (response.result[0].image_path) {
+                        setBgtFiles(generateS3Urls(response.result[0].image_path));
+                    } else {
+                        setError('이미지 파일을 찾을 수 없습니다.');
+                    }
                 }
             } else {
                 setError('BGT 파일을 찾을 수 없습니다.');

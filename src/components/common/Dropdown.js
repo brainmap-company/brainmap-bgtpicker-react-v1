@@ -6,7 +6,6 @@ import * as SVG from '@svg';
 
 import TypoV2 from './TypoV2';
 
-//#region styled-components
 
 const DropdownContainer = styled.div`
     position: relative;
@@ -60,7 +59,6 @@ const SVGWrapper = styled.div`
     transition: transform 0.3s;
 `;
 
-//#endregion
 
 const Dropdown = ({ currentDropdownItem, setCurrentDropdownItem, items, width, height, placeholder = '선택' }) => {
     const [open, setOpen] = useState(false);

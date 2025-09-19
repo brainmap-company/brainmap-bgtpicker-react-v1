@@ -26,7 +26,6 @@ const ModalComponent = memo((props) => {
         };
     }, [modal]);
 
-    // 자동 닫기 기능을 별도 효과로 분리
     useEffect(() => {
         if (modal && autoClose) {
             const timer = setTimeout(() => {
