@@ -70,9 +70,12 @@ export const downloadBgtFilesAsZip = async (bgtUrls, filename = 'bgt_files', fil
         const zip = new JSZip();
         
         if (fileType === 'text') {
-            bgtUrls.forEach((textData, index) => {
-                zip.file(`${filename}_${index + 1}.txt`, JSON.stringify(textData, null, 2));
-            });
+            const allAnswers = bgtUrls.flat();
+            const combinedText = allAnswers.map((answer, index) => 
+                `${index + 1}. ${answer}`
+            ).join('\n\n');
+            
+            zip.file(`${filename}.txt`, combinedText);
         } else {
             const promises = bgtUrls.map(async (bgtUrl, index) => {
                 try {

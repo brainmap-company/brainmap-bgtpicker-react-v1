@@ -218,15 +218,24 @@ const BgtPicker = () => {
                     </Box>
                     
                     <ImageGrid>
-                        {bgtFiles.map((fileData, index) => (
-                            <ImageCard key={index} onClick={() => {
-                                if (currentType !== 'PFT') window.open(fileData, '_blank');
-                            }}>
-                                {currentType === 'PFT' ? (
-                                    <Box style={{ width: '100%', height: '200px', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #dee2e6' }}>
-                                        <Typo fontSize="16px" color="#6c757d">📄 텍스트 파일</Typo>
-                                    </Box>
-                                ) : (
+                        {currentType === 'PFT' ? (
+                            <ImageCard onClick={() => {}}>
+                                <Box style={{ width: '100%', height: '200px', backgroundColor: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '2px dashed #dee2e6' }}>
+                                    <Typo fontSize="24px" color="#6c757d" margin="0 0 10px 0">📄</Typo>
+                                    <Typo fontSize="16px" color="#6c757d" margin="0 0 5px 0">PFT 텍스트 파일</Typo>
+                                    <Typo fontSize="14px" color="#999">총 {bgtFiles.length}개 답변</Typo>
+                                </Box>
+                                <Box padding="10px">
+                                    <Typo fontSize="14px" color="#666">
+                                        {formData.patient_id}_PFT_text ({bgtFiles.length}개 답변)
+                                    </Typo>
+                                </Box>
+                            </ImageCard>
+                        ) : (
+                            bgtFiles.map((fileData, index) => (
+                                <ImageCard key={index} onClick={() => {
+                                    window.open(fileData, '_blank');
+                                }}>
                                     <img
                                         src={fileData}
                                         alt={`${currentType} 파일 ${index + 1}`}
@@ -236,14 +245,14 @@ const BgtPicker = () => {
                                         }}
                                         style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }}
                                     />
-                                )}
-                                <Box padding="10px">
-                                    <Typo fontSize="14px" color="#666">
-                                        {currentType === 'PFT' ? `${formData.patient_id}_PFT_text` : `${currentType}_images_${index + 1}`}
-                                    </Typo>
-                                </Box>
-                            </ImageCard>
-                        ))}
+                                    <Box padding="10px">
+                                        <Typo fontSize="14px" color="#666">
+                                            {currentType}_images_${index + 1}
+                                        </Typo>
+                                    </Box>
+                                </ImageCard>
+                            ))
+                        )}
                     </ImageGrid>
                 </Box>
             )}
