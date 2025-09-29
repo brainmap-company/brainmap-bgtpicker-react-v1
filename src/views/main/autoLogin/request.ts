@@ -1,4 +1,4 @@
-import Config from '@src/config/secret';
+import Config from '@src/config/secret.json';
 
 const LOGIN_API_URL = `${Config.REQUEST[0].url}/account/login`;
 

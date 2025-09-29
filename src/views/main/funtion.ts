@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import Config from '@src/config/secret';
+import Config from '@src/config/secret.json';
 
 const API_BASE_URL = `${Config.REQUEST[0].url}/bgt/data`;
 const S3_BASE_URL = 'https://brainmap.s3.ap-northeast-2.amazonaws.com/';
