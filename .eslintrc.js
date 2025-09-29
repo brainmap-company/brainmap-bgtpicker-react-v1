@@ -1,37 +1,43 @@
 module.exports = {
     env: {
-        node: true,
-        es6: true,
         browser: true,
+        es2020: true,
+        node: true,
     },
+    extends: [
+        'eslint:recommended',
+        '@typescript-eslint/recommended',
+        'plugin:react-hooks/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true,
-            modules: true,
-            experimentalObjectRestSpread: true,
         },
     },
+    plugins: ['@typescript-eslint', 'react-hooks'],
     rules: {
+        // Console and debugging
         'no-console': 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
-        // Best Practices
-        'no-invalid-this': 'warn',
-        'no-return-assign': 'warn',
+        // TypeScript specific
+        '@typescript-eslint/no-unused-vars': ['warn', { 
+            varsIgnorePattern: '^[A-Z]',
+            argsIgnorePattern: '^_'
+        }],
+        '@typescript-eslint/no-explicit-any': 'warn',
 
-        // Variable
-        'no-use-before-define': 'warn',
-        'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z]' }],
+        // React Hooks
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
 
-        // ES6
-        'no-undef': 'warn',
-        'no-confusing-arrow': 'off',
-        'no-duplicate-imports': 'warn',
-        'no-var': 'warn',
-        'object-shorthand': 'warn',
+        // Code quality
         'prefer-const': 'warn',
+        'no-var': 'error',
+        'object-shorthand': 'warn',
         'prefer-template': 'warn',
     },
 };
