@@ -68,7 +68,7 @@ const BoxContainer = styled.div<BoxProps>`
     width: ${(props) => (props.width ? props.width : '98%')};
     height: ${(props) => (props.height ? props.height : 'auto')};
     min-height: ${(props) => (props.isExpended ? props.expendedMinHeight : 'auto')};
-    border: ${(props) => (props.backgroundColor === 'none' ? '' : `1px solid ${props.theme.BORDER_GRAY_COLOR}`)};
+    border: ${(props) => (props.backgroundColor === 'none' ? '' : '1px solid #dee2e6')};
     border-radius: ${(props) => (props.borderRadius ? props.borderRadius : '10px')};
     background-color: ${(props) => (props.backgroundColor ? props.backgroundColor : '#fff')};
     z-index: ${(props) => (props.isExpended ? 100 : 'auto')};

@@ -148,7 +148,7 @@ const BgtPicker: React.FC = () => {
 
     return (
         <Box padding="20px" width="100%" maxWidth="1200px" margin="0 auto">
-            <Box display="flex" alignItems="center" justifyContent="center" margin="0 0 20px 0">
+            <Box display="flex" alignItems="center" justifyContent="center" margin="0 0 20px 0" backgroundColor="none">
                 <img src={BrainMapLogo} alt="BrainMap Logo" style={{ height: '32px', width: 'auto', borderRadius: '4px', marginRight: '55px' }} />
             </Box>
             
@@ -159,14 +159,14 @@ const BgtPicker: React.FC = () => {
                         { key: 'patient_id', label: '환자 ID', placeholder: '환자 ID를 입력하세요', type: 'text' },
                         { key: 'menuDate', label: '날짜', type: 'date' }
                     ].map(field => (
-                        <Box key={field.key}>
+                        <Box key={field.key} width="95%">
                             <Typo fontSize="14px" fontWeight="bold" margin="0 0 5px 0">{field.label}:</Typo>
                             <Input
                                 type={field.type}
                                 value={formData[field.key as keyof FormData]}
                                 setValue={(value) => setFormData(prev => ({ ...prev, [field.key]: value }))}
                                 placeholder={field.placeholder}
-                                width="75%"
+                                width="80%"
                                 height="40px"
                             />
                             {validationErrors[field.key] && (
@@ -175,12 +175,12 @@ const BgtPicker: React.FC = () => {
                         </Box>
                     ))}
                     
-                    <Box>
+                    <Box width="95%">
                         <Typo fontSize="14px" fontWeight="bold" margin="0 0 5px 0">타입:</Typo>
                         <select
                             value={formData.type}
                             onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
-                            style={{ width: '90%', height: '40px', padding: '8px', border: validationErrors.type ? '1px solid #dc3545' : '1px solid #ccc', borderRadius: '4px', fontSize: '14px' }}
+                            style={{ width: '96%', height: '40px', padding: '8px', border: validationErrors.type ? '1px solid #dc3545' : '1px solid #ccc', borderRadius: '4px', fontSize: '14px' }}
                         >
                             <option value="">타입을 선택하세요</option>
                             {typeOptions.map(option => <option key={option} value={option}>{option}</option>)}
@@ -190,25 +190,23 @@ const BgtPicker: React.FC = () => {
                 </Box>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                    <button
+                    <Button
                         type="submit"
                         disabled={loading || !authInitialized}
-                        style={{
-                            backgroundColor: '#6c757d',
-                            color: 'white',
-                            padding: '12px 24px',
-                            borderRadius: '8px',
-                            fontSize: '16px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            border: 'none',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
+                        backgroundColor="#6c757d"
+                        color="white"
+                        padding="12px 24px"
+                        borderRadius="8px"
+                        fontSize="16px"
+                        fontWeight="600"
+                        cursor="pointer"
+                        border="none"
+                        display="flex"
+                        justifyContent="center"
                     >
                         <SearchIcon />
                         {!authInitialized ? '로그인 중...' : loading ? '로딩 중...' : 'BGT 파일 조회'}
-                    </button>
+                    </Button>
                 </div>
             </form>
 

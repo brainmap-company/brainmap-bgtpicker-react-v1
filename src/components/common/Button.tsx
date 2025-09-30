@@ -17,6 +17,7 @@ interface ButtonProps {
     cursor?: string;
     border?: string;
     color?: string;
+    type?: 'button' | 'submit' | 'reset';
     onClick?: () => void;
     onKeyDown?: (e: React.KeyboardEvent) => void;
     children?: React.ReactNode;
@@ -33,13 +34,13 @@ const ButtonContainer = styled.div<ButtonProps>`
     padding: ${(props) => (props.padding ? props.padding : '4px 15px')};
     width: ${(props) => (props.width ? props.width : 'fit-content')};
     height: ${(props) => (props.height ? props.height : 'auto')};
-    color: ${(props) => (props.color ? props.color : props.theme.MAIN_THEME_COLOR)};
+    color: ${(props) => (props.color ? props.color : '#007bff')};
     font-size: ${(props) => (props.fontSize ? props.fontSize : '15px')};
     font-weight: ${(props) => (props.fontWeight ? props.fontWeight : '600')};
     line-height: ${(props) => (props.lineHeight ? props.lineHeight : '19px')};
     word-break: keep-all;
     border: ${(props) => (props.border ? props.border : 'none')};
-    background-color: ${(props) => (props.backgroundColor ? props.backgroundColor : props.theme.PALE_THEME_COLOR)};
+    background-color: ${(props) => (props.backgroundColor ? props.backgroundColor : '#e3f2fd')};
     border-radius: ${(props) => (props.borderRadius ? props.borderRadius : '9px')};
     opacity: ${(props) => (props.disabled ? 0.5 : 1)};
     cursor: ${(props) => (props.cursor ? 'pointer' : 'unset')};
@@ -62,6 +63,7 @@ const Button: React.FC<ButtonProps> = ({
     cursor, 
     border, 
     color, 
+    type,
     onClick, 
     onKeyDown, 
     children, 
@@ -70,6 +72,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
     return (
         <ButtonContainer
+            as={type === 'submit' ? 'button' : 'div'}
+            type={type}
             display={display}
             justifyContent={justifyContent}
             margin={margin}
