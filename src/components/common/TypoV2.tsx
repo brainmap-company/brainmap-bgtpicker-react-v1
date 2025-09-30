@@ -31,7 +31,7 @@ const StyledText = styled.span<TypoV2Props>`
     width: ${(props) => (props.width ? props.width : 'fit-content')};
     height: ${(props) => (props.height ? props.height : 'auto')};
     font-size: ${(props) => (props.fontSize ? props.fontSize : '16px')};
-    color: ${(props) => (props.color ? props.color : props.theme.TEXT_COLOR)};
+    color: ${(props) => (props.color ? props.color : '#333333')};
     font-weight: ${(props) => (props.fontWeight ? props.fontWeight : 400)};
     font-style: ${(props) => (props.fontStyle ? props.fontStyle : '')};
     line-height: ${(props) => (props.lineHeight ? props.lineHeight : 'normal')};
@@ -92,6 +92,7 @@ const TypoV2: React.FC<TypoV2Props> = ({
 );
 
 export default TypoV2;
+
 
 
 
