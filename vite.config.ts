@@ -19,11 +19,13 @@ export default defineConfig(configEnv => {
             }
         },
         build: {
-            minify: 'esbuild',
-            esbuild: {
-                drop: configEnv.mode === 'production' ? ['console', 'debugger'] : [],
-                sourcemap: configEnv.mode === 'development'
-            }
+            rollupOptions: {
+                output: {
+                    minify: configEnv.mode === 'production' ? { compress: { dropConsole: true }, mangle: true } : true
+                }
+            },
+            minify: 'oxc',
+            sourcemap: configEnv.mode === 'development'
         },
         resolve: {
             dedupe: ['react', 'react-dom']
